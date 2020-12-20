@@ -1,6 +1,7 @@
 package ImageHoster.service;
 
 import ImageHoster.model.Image;
+import ImageHoster.model.User;
 import ImageHoster.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,9 @@ public class ImageService {
     }
 
 
-    //The method calls the getImageByTitle() method in the Repository and passes the title of the image to be fetched
-    public Image getImageByTitle(String title) {
-        return imageRepository.getImageByTitle(title);
+    //The method calls the getImageByTitle() method in the Repository and passes the title and image id of the image to be fetched
+    public Image getImageByTitleAndId(String title, Integer imageId) {
+        return imageRepository.getImageByTitleAndId(title, imageId);
     }
 
     //The method calls the getImage() method in the Repository and passes the id of the image to be fetched
@@ -44,6 +45,13 @@ public class ImageService {
     //The method calls the deleteImage() method in the Repository and passes the Image id of the image to be deleted in the database
     public void deleteImage(Integer imageId) {
         imageRepository.deleteImage(imageId);
+    }
+    
+    //The method calls the getImage() method in the Repository and retrieve image details and compare the image owner userid with currently logged in user and returns true if both are same 
+    public boolean isImageOwner(Image image, User user) {
+    	  Integer imageUserId = image.getUser().getId();
+    	  boolean isOwner = (imageUserId == user.getId());
+    	  return isOwner;
     }
 
 }
