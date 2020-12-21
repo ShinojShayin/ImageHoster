@@ -41,6 +41,7 @@ public class ImageController {
     //First receive the dynamic parameter in the incoming request URL in a string variable 'title', integer variable 'imageId' and also the Model type object
     //Call the getImageByTitleAndId() method in the business logic to fetch all the details of that image
     //Add the image in the Model type object with 'image' as the key
+    //Add the comments in the Model type object with 'comments' as the key
     //Return 'images/image.html' file
 
     //Also now you need to add the tags of an image in the Model type object
@@ -49,6 +50,7 @@ public class ImageController {
     @RequestMapping("/images/{imageId}/{title}")
     public String showImage(@PathVariable("imageId") Integer imageId, @PathVariable("title") String title, Model model) {
         Image image = imageService.getImageByTitleAndId(title, imageId);
+        model.addAttribute("comments", image.getComments());
         model.addAttribute("image", image);
         model.addAttribute("tags", image.getTags());
         return "images/image";
@@ -89,6 +91,8 @@ public class ImageController {
     //This controller method is called when the request pattern is of type 'editImage'
     //This method fetches the image with the corresponding id from the database and adds it to the model with the key as 'image'
     //The method then returns 'images/edit.html' file wherein you fill all the updated details of the image
+    //This method check if the request user is same as user who uploaded the image if the user is same then it will allow to edit the image, else it wont
+    //This method will send message in model against 'editError' has 'Only the owner of the image can edit the image' if non-owner tries to edit image
 
     //The method first needs to convert the list of all the tags to a string containing all the tags separated by a comma and then add this string in a Model type object
     //This string is then displayed by 'edit.html' file as previous tags of an image
@@ -149,6 +153,8 @@ public class ImageController {
 
     //This controller method is called when the request pattern is of type 'deleteImage' and also the incoming request is of DELETE type
     //The method calls the deleteImage() method in the business logic passing the id of the image to be deleted
+    //This method check if the request user is same as user who uploaded the image if the user is same then it will allow to delete the image, else it wont
+    //This method will send message in model against 'editError' has 'Only the owner of the image can edit the image' if non-owner tries to delete the image
     //Looks for a controller method with request mapping of type '/images'
     @RequestMapping(value = "/deleteImage", method = RequestMethod.DELETE)
     public String deleteImageSubmit(@RequestParam(name = "imageId") Integer imageId, Model model, HttpSession session,RedirectAttributes redirect) {
