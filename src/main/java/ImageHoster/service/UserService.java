@@ -19,9 +19,6 @@ public class UserService {
         userRepository.registerUser(newUser);
     }
 
-    //Since we did not have any user in the database, therefore the user with username 'upgrad' and password 'password' was hard-coded
-    //This method returned true if the username was 'upgrad' and password is 'password'
-    //But now let us change the implementation of this method
     //This method receives the User type object
     //Calls the checkUser() method in the Repository passing the username and password which checks the username and password in the database
     //The Repository returns User type object if user with entered username and password exists in the database
@@ -35,6 +32,9 @@ public class UserService {
         }
     }
     
+    //This method receive password string
+    //And verifies the password contain at least 1 alphabet (a-z or A-Z), 1 number (0-9) and 1 special character (any character other than a-z, A-Z and 0-9)
+    //If the pattern specified matches it will return true else it will return false to indicate invalid password.
     public boolean validatePassword(String password) {
     	 Pattern pattern= Pattern.compile("(?=.*[a-z])(?=.*[0-9])(?=.*[^a-z0-9])", Pattern.CASE_INSENSITIVE);
          boolean valid = pattern.matcher(password).find();
