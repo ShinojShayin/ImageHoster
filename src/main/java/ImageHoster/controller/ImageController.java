@@ -111,6 +111,7 @@ public class ImageController {
         	String imageTitle = imageService.getImage(imageId).getTitle();
         	String error = "Only the owner of the image can edit the image";
         	redirect.addFlashAttribute("editError", error);
+        	redirect.addAttribute("editError", error);
         	return "redirect:/images/" + imageId + '/' + imageTitle;
         }
         
@@ -169,6 +170,7 @@ public class ImageController {
         	  String imageTitle = imageService.getImage(imageId).getTitle();
               String error = "Only the owner of the image can delete the image";
               redirect.addFlashAttribute("deleteError", error);
+              redirect.addAttribute("deleteError", error);
               return "redirect:/images/" + imageId + '/' + imageTitle;
          }
        
