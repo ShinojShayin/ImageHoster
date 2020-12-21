@@ -2,6 +2,9 @@ package ImageHoster.service;
 
 import ImageHoster.model.User;
 import ImageHoster.repository.UserRepository;
+
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +33,12 @@ public class UserService {
         } else {
             return null;
         }
+    }
+    
+    public boolean validatePassword(String password) {
+    	 Pattern pattern= Pattern.compile("(?=.*[a-z])(?=.*[0-9])(?=.*[^a-z0-9])", Pattern.CASE_INSENSITIVE);
+         boolean valid = pattern.matcher(password).find();
+         return valid;
     }
 
 }
