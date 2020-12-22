@@ -151,7 +151,7 @@ public class ImageControllerTest {
     }
 
     //This test checks the controller logic when the owner of the image sends the GET request to get the form to edit the image and checks whether the logic returns the html file 'images/edit.html'
-//    @Test
+    @Test
     public void editImageWithOwnerOfTheImage() throws Exception {
         User user = new User();
         UserProfile userProfile = new UserProfile();
